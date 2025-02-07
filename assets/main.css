@@ -1,0 +1,32 @@
+.container {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+@media screen and (max-width: 1360px) {
+  .container {
+    max-width: 1180px;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .container {
+    max-width: 960px;
+  }
+}
+@media screen and (max-width: 989px) {
+  .container {
+    max-width: 720px;
+  }
+}
+@media screen and (max-width: 749px) {
+  .container {
+    max-width: 540px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .container {
+    max-width: 100%;
+  }
+}
+
+/*# sourceMappingURL=main.css.map */

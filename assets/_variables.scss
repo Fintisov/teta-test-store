@@ -1,0 +1,31 @@
+$ui-color-green: #939C38;
+$ui-color-green-dark: #37341C;
+$ui-color-dark: #37341C;
+$ui-color-grey: #727272;
+
+
+// ------------ Breakpoints ------------
+
+$ui-breakpoints-xxl: "1360px";
+$ui-breakpoints-xxl--min: "1361px";
+
+$ui-breakpoints-xl: "1200px";
+$ui-breakpoints-xl--min: "1201px";
+
+$ui-breakpoints-lg: "989px";
+$ui-breakpoints-lg--min: "990px";
+
+$ui-breakpoints-md: "749px";
+$ui-breakpoints-md--min: "750px";
+
+$ui-breakpoints-sm: "576px";
+$ui-breakpoints-sm--min: "577px";
+
+// ------------------------------------------------
+// ------------ Container ------------
+
+$ui-container-width-base: var(--page-width);
+$ui-container-width-xxl: 1180px;
+$ui-container-width-xl: 960px;
+$ui-container-width-lg: 720px;
+$ui-container-width-md: 540px;

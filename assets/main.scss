@@ -1,0 +1,29 @@
+@use "mixins" as *;
+@use "variables" as *;
+@use 'sass:color';
+
+.container {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+
+  @media screen and (max-width: $ui-breakpoints-xxl) {
+    max-width: $ui-container-width-xxl;
+  }
+
+  @media screen and (max-width: $ui-breakpoints-xl) {
+    max-width: $ui-container-width-xl;
+  }
+
+  @media screen and (max-width: $ui-breakpoints-lg) {
+    max-width: $ui-container-width-lg;
+  }
+
+  @media screen and (max-width: $ui-breakpoints-md) {
+    max-width: $ui-container-width-md;
+  }
+
+  @media screen and (max-width: $ui-breakpoints-sm) {
+    max-width: 100%;
+  }
+}
