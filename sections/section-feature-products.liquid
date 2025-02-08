@@ -1,0 +1,94 @@
+{{ 'section-feature-products.css' | asset_url | stylesheet_tag }}
+{{ "snippet-product-card.css" | asset_url | stylesheet_tag }}
+
+{%- capture styles -%}
+  --padding-top-section: {{ section.settings.padding_top }}px;
+  --padding-bottom-section: {{ section.settings.padding_bottom }}px;
+{%- endcapture -%}
+
+<div
+   class="feature-products"
+   style="{{ styles | strip_newlines }}"
+>
+  <div class="container">
+    <div class="feature-products__title-wrapper title-with-line title-with-line--desktop">
+      <h2 class="feature-products__title">Featured Products</h2>
+    </div>
+
+    <tab-container class="feature-products-tabs feature-products__tabs">
+      <ul class="feature-products-tabs__trigger-group js-tab-container-trigger-group">
+        <li class="feature-products-tabs__trigger-item">
+          <button class="feature-products-tabs__trigger-button active">Shop By Category</button>
+        </li>
+
+        <li class="feature-products-tabs__trigger-item">
+          <button class="feature-products-tabs__trigger-button">Best Sellers</button>
+        </li>
+
+        <li class="feature-products-tabs__trigger-item">
+          <button class="feature-products-tabs__trigger-button">New Arrivals</button>
+        </li>
+
+        <li class="feature-products-tabs__trigger-item">
+          <button class="feature-products-tabs__trigger-button">On Sale</button>
+        </li>
+      </ul>
+
+      <div class="feature-products-tabs__content-group js-tab-container-content-group">
+        <ul class="feature-products-tabs__product-list feature-products-list">
+          <li class="feature-products-list_item">
+            {%- render 'product-card' -%}
+          </li>
+        </ul>
+      </div>
+    </tab-container>
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Feature products",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "[Example section :](https://prnt.sc/_THJEcIb2vK2)"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 64,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 64,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "type_name",
+      "name": "block_name",
+      "settings": [
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Feature products"
+    }
+  ]
+}
+{% endschema %}

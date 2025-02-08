@@ -1,0 +1,37 @@
+{% comment %}
+  Renders an product card.
+
+  Accepts:
+  - product: {Object} Product object
+
+  Usage:
+  {{ "snippet-product-card.css" | asset_url | stylesheet_tag }}
+
+  {% render 'product-card' %}
+{% endcomment %}
+
+<div class="product-card">
+  <div class="product-card__media">
+    <div class="product-card__image-holder">
+      <img src="https://content.rozetka.com.ua/goods/images/big/507068884.jpg"
+           alt=""
+           loading="lazy">
+    </div>
+  </div>
+  <h3 class="product-card__title">Metal Raised Garden Bed Kits (4x8)</h3>
+  <p class="product-card__description">Single Garden Grid™ connection manifold</p>
+
+  <div class="product-card__info-group">
+    <div class="product-card__price">$250.00</div>
+
+    <label class="visually-hidden" for="product-option">Product options</label>
+    <select id="product-option">
+      <option value="" selected disabled hidden>Options</option>
+      <option value="123456789">Product-1</option>
+      <option value="123456789">Product-2</option>
+      <option value="123456789">Product-3</option>
+    </select>
+  </div>
+
+  <button class="button">Add to Card</button>
+</div>

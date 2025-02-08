@@ -2,6 +2,46 @@
 @use "variables" as *;
 @use 'sass:color';
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}
+
+select {
+  border: none;
+  min-height: 37px;
+  border-radius: 8px;
+  background-color: #ECEAE0;
+  padding: 8px 26px 8px 10px;
+  font-size: 1.4rem;
+  color: $ui-color-dark;
+  background-image: url("./icon-arrow-down.svg");
+  background-position: calc(100% - 7px) center;
+  background-size: 24px;
+  background-repeat: no-repeat;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  font-family: $ui-font-base;
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
 .container {
   max-width: var(--page-width);
   margin: 0 auto;
@@ -25,5 +65,67 @@
 
   @media screen and (max-width: $ui-breakpoints-sm) {
     max-width: 100%;
+  }
+}
+
+.button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 5.6rem;
+  padding: 1rem 2.4rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: white;
+  background-color: $ui-color-green;
+  border-radius: 50px;
+  transition: 0.2s;
+  cursor: pointer;
+
+  @media screen and (max-width: $ui-breakpoints-md) {
+    min-height: 4.8rem;
+    font-size: 1.6rem;
+  }
+
+  &:hover {
+    background-color: color.scale($ui-color-green, $lightness: -10%);
+  }
+
+  &.button--secondary {
+    color: $ui-color-green-light;
+    background-color: $ui-color-dark;
+
+    &:hover {
+      color: $ui-color-white;
+      background-color: color.scale($ui-color-dark, $lightness: 10%);
+    }
+  }
+}
+
+.title-with-line {
+  position: relative;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    z-index: -1;
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #E9EBCE;
+    transform: translateY(-50%);
+  }
+
+  &.title-with-line--desktop:before {
+
+    @media screen and (max-width: $ui-breakpoints-md) {
+      display: none;
+    }
   }
 }
