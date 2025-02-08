@@ -1,4 +1,7 @@
+@use 'sass:color';
+
 $ui-color-green: #939C38;
+$ui-color-green--hover: color.scale($ui-color-green, $lightness: -10%);
 $ui-color-green-dark: #5F5A2A;
 $ui-color-green-light: #E9EBCE;
 $ui-color-dark: #37341C;

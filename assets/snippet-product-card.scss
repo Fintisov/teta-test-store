@@ -69,12 +69,15 @@
   }
 }
 
+.product-card__form-wrapper {
+  margin-top: auto;
+}
+
 .product-card__info-group {
   display: flex;
   justify-content: space-between;
   align-items: end;
   gap: 10px;
-  margin-top: auto;
   margin-bottom: 2.4rem;
 }
 
@@ -89,6 +92,13 @@
 
   @media screen and (max-width: $ui-breakpoints-md) {
     font-size: 2rem;
+  }
+
+
+  .price__sale {
+    .price-item--regular {
+      display: block;
+    }
   }
 }
 

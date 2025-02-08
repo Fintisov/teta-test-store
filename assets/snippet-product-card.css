@@ -78,12 +78,15 @@
   }
 }
 
+.product-card__form-wrapper {
+  margin-top: auto;
+}
+
 .product-card__info-group {
   display: flex;
   justify-content: space-between;
   align-items: end;
   gap: 10px;
-  margin-top: auto;
   margin-bottom: 2.4rem;
 }
 
@@ -100,6 +103,9 @@
   .product-card__price {
     font-size: 2rem;
   }
+}
+.product-card__price .price__sale .price-item--regular {
+  display: block;
 }
 
 /*# sourceMappingURL=snippet-product-card.css.map */

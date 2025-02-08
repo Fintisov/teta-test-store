@@ -64,7 +64,7 @@
           "type": "product_tabs",
           "settings": {
             "title": "Best Sellers",
-            "collection_product": "",
+            "collection_product": "hp",
             "limit_product_card": 0
           }
         },
@@ -72,7 +72,7 @@
           "type": "product_tabs",
           "settings": {
             "title": "New Arrivals",
-            "collection_product": "",
+            "collection_product": "frontpage",
             "limit_product_card": 0
           }
         },
@@ -80,7 +80,7 @@
           "type": "product_tabs",
           "settings": {
             "title": "On Sale",
-            "collection_product": "",
+            "collection_product": "ultraslim",
             "limit_product_card": 0
           }
         }
