@@ -12,25 +12,43 @@
 
 <div class="product-card">
   <div class="product-card__media">
-    <div class="product-card__image-holder">
-      <img src="https://content.rozetka.com.ua/goods/images/big/507068884.jpg"
-           alt=""
-           loading="lazy">
-    </div>
+    <a href="{{ product.url }}">
+      <div class="product-card__image-holder">
+        {%- render 'image',
+           image_box: product.images[0]
+        -%}
+      </div>
+    </a>
   </div>
-  <h3 class="product-card__title">Metal Raised Garden Bed Kits (4x8)</h3>
-  <p class="product-card__description">Single Garden Grid™ connection manifold</p>
+
+  <h3 class="product-card__title">
+    <a href="{{ product.url }}">
+      {{ product.title }}
+    </a>
+  </h3>
+
+  <p class="product-card__description">{{ product.description | strip_html }}</p>
 
   <div class="product-card__info-group">
-    <div class="product-card__price">$250.00</div>
+    {% render 'price',
+       product: product,
+       price_class: 'product-card__price',
+       use_variant: true
+    %}
 
-    <label class="visually-hidden" for="product-option">Product options</label>
-    <select id="product-option">
-      <option value="" selected disabled hidden>Options</option>
-      <option value="123456789">Product-1</option>
-      <option value="123456789">Product-2</option>
-      <option value="123456789">Product-3</option>
-    </select>
+
+    {% unless product.has_only_default_variant %}
+      <label class="visually-hidden" for="product-option">Product options</label>
+
+      <select id="product-option">
+        <option value="" selected disabled hidden>Options</option>
+
+        {%- for variant in product.variants -%}
+          <option value="{{ variant.id }}">{{ variant.option1 }}</option>
+        {%- endfor -%}
+      </select>
+    {% endunless %}
+
   </div>
 
   <button class="button">Add to Card</button>

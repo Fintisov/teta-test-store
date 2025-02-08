@@ -2,7 +2,14 @@
 @use 'mixins' as *;
 
 .product-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 }
 
 .product-card__media {
@@ -17,7 +24,6 @@
   position: relative;
   padding-top: 75%;
   overflow: hidden;
-  background-color: yellow;
   border-radius: 16px;
 
   img {
@@ -66,8 +72,9 @@
 .product-card__info-group {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: end;
   gap: 10px;
+  margin-top: auto;
   margin-bottom: 2.4rem;
 }
 
