@@ -1317,7 +1317,6 @@ class TabContainer extends HTMLElement {
 
 customElements.define('tab-container', TabContainer);
 
-
 class CustomProductCard extends HTMLElement {
   constructor() {
     super();
@@ -1327,7 +1326,27 @@ class CustomProductCard extends HTMLElement {
       productId: null,
     };
 
+    this.submitButton = this.querySelector('form button[type=submit]');
+
     this.render();
+  }
+
+  getFormatPrice(priceData) {
+    let priceStr = String(priceData);
+
+    const currentPrice = this.querySelector('.price-item')?.innerText.trim();
+    const currencySign = currentPrice.replace(/[0-9].*$/, '');
+
+    if (priceStr.length < 3) {
+      priceStr = priceStr.padStart(3, '0');
+    }
+
+    const decimalPart = priceStr.slice(-2);
+    const integerPart = priceStr.slice(0, -2);
+
+    const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    return `${currencySign}${formattedInteger}.${decimalPart}`;
   }
 
   updateInputFormData(form) {
@@ -1340,7 +1359,7 @@ class CustomProductCard extends HTMLElement {
     return this.inputFormData;
   }
 
-  updateSections(data) {
+  updateCartContent(data) {
     const updateCartIcon = () => {
       const containerCartIcon = document.querySelector('#cart-icon-bubble');
       containerCartIcon.innerHTML = data.sections['cart-icon-bubble'];
@@ -1360,19 +1379,97 @@ class CustomProductCard extends HTMLElement {
   }
 
   toggleActiveSubmitButton(status = true) {
-    const submitButton = this.querySelector('form button[type=submit]');
-
     if (status === true) {
-      submitButton?.removeAttribute('disabled');
+      this.submitButton?.removeAttribute('disabled');
     }
 
     if (status === false) {
-      submitButton?.setAttribute('disabled', status);
+      this.submitButton?.setAttribute('disabled', status);
     }
 
     return status;
   }
 
+  updateProductCardOnVariantChange() {
+    const select = this.querySelector('.js-product-card-options');
+
+    if (!select) return;
+
+    const updateVariantId = () => {
+      const variantId = select.value;
+      const inputVariantId = this.querySelector('.js-product-variant-id');
+
+      inputVariantId.value = variantId;
+      this.inputFormData['productId'] = variantId;
+    };
+
+    select?.addEventListener('change', async () => {
+      updateVariantId();
+
+      const data = await this.getProductData();
+      const productData = data['variants'].find(item => {
+        return item.id == this.inputFormData['productId'];
+      });
+
+      this.updateProductCardContent(productData);
+    });
+  }
+
+  updateProductCardContent(productData) {
+    const updateProductImage = () => {
+      if (!productData['featured_image']) return;
+
+      const image = this.querySelector('.js-product-card-image-holder img');
+      image.setAttribute('srcset', productData['featured_image']['src']);
+      image.setAttribute('src', productData['featured_image']['src']);
+    };
+
+
+    const updatePrice = () => {
+      const priceContainer = this.querySelector('.price');
+      const priceRegular = priceContainer.querySelector('s.price-item');
+      const isSalePrice = productData['compare_at_price'] > productData['price'];
+
+      if (isSalePrice) {
+        priceContainer.classList.add('price--on-sale');
+        priceRegular.textContent = this.getFormatPrice(productData['compare_at_price']);
+      } else {
+        priceContainer.classList.remove('price--on-sale');
+        priceRegular.textContent = '';
+      }
+
+      const priceItems = priceContainer.querySelectorAll('span.price-item');
+      priceItems.forEach(item => item.textContent = this.getFormatPrice(productData['price']));
+    };
+
+    const updateButton = () => {
+      const isAvailableProduct = productData['available'];
+
+      if (isAvailableProduct) {
+        this.toggleActiveSubmitButton(true);
+        this.submitButton.innerText = 'Add to cart';
+      } else {
+        this.toggleActiveSubmitButton(false);
+        this.submitButton.innerText = 'Sold out';
+      }
+    };
+
+    updateProductImage();
+    updateButton();
+    updatePrice();
+  }
+
+  openCartDrawer() {
+    const cartDrawer = document.querySelector('cart-drawer');
+
+    cartDrawer.classList.add('active', 'animate');
+    document.body.classList.add('overflow-hidden');
+  }
+
+  async getProductData(handle = this.inputFormData['handle']) {
+    const response = await fetch(`/products/${handle}.js`);
+    return await response.json();
+  }
 
   async onRequestAddProduct(formData) {
     try {
@@ -1409,22 +1506,17 @@ class CustomProductCard extends HTMLElement {
 
     this.toggleActiveSubmitButton(true);
 
-    this.updateSections(responsData);
+    this.updateCartContent(responsData);
 
     setTimeout(this.openCartDrawer);
-  }
-
-  openCartDrawer() {
-    const cartDrawer = document.querySelector('cart-drawer');
-
-    cartDrawer.classList.add('active', 'animate');
-    document.body.classList.add('overflow-hidden');
   }
 
   render() {
     const form = this.querySelector('form');
 
     this.updateInputFormData(form);
+
+    this.updateProductCardOnVariantChange();
 
     form.addEventListener('submit', async (event) => {
       event.preventDefault();

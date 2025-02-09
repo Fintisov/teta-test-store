@@ -29,44 +29,64 @@
 
   <p class="product-card__description">{{ product.description | strip_html }}</p>
 
-  <form>
-    <div class="product-card__info-group">
-      {% render 'price',
-         product: product,
-         price_class: 'product-card__price',
-         use_variant: true
-      %}
+  <div class="product-card__form-wrapper">
+    <form>
+      <div class="product-card__info-group">
+        {% render 'price',
+           product: product,
+           price_class: 'product-card__price',
+           use_variant: true
+        %}
 
 
-      {% unless product.has_only_default_variant %}
-        <label>
-          <span class="visually-hidden">Product options</span>
+        {% unless product.has_only_default_variant %}
+          <label>
+            <span class="visually-hidden">Product options</span>
 
-          <select class="product-card__options js-product-card-options">
-            <option value="" selected disabled hidden>Options</option>
+            <select class="product-card__options js-product-card-options">
+              <option value="" selected disabled hidden>Options</option>
 
-            {%- for variant in product.variants -%}
-              <option value="{{ variant.id }}">{{ variant.option1 }}</option>
-            {%- endfor -%}
-          </select>
-        </label>
-      {% endunless %}
-    </div>
+              {%- for variant in product.variants -%}
+                <option value="{{ variant.id }}">{{ variant.option1 }}</option>
+              {%- endfor -%}
+            </select>
+          </label>
+        {% endunless %}
+      </div>
 
-    <input
-       class="js-product-handle"
-       type="hidden"
-       name="handle"
-       value="{{ product.handle }}"
-    >
+      <input
+         class="js-product-handle"
+         type="hidden"
+         name="handle"
+         value="{{ product.handle }}"
+      >
 
-    <input
-       class="js-product-variant-id"
-       type="hidden"
-       name="productId"
-       value="{{ product.selected_or_first_available_variant.id }}"
-    >
+      <input
+         class="js-product-variant-id"
+         type="hidden"
+         name="productId"
+         value="{{ product.selected_or_first_available_variant.id }}"
+      >
 
-    <button type="submit" class="button">Add to Card</button>
-  </form>
+      {%- assign sold_out = false -%}
+
+      {% if product.selected_or_first_available_variant.available == false %}
+        {%- assign sold_out = true -%}
+      {% endif %}
+
+      <button
+         type="submit"
+         class="button"
+         {% if sold_out %}
+           disabled
+         {% endif %}
+      >
+        {% if sold_out %}
+          {{ 'products.product.sold_out' | t }}
+        {%- else -%}
+          {{ 'products.product.add_to_cart' | t }}
+        {% endif %}
+      </button>
+    </form>
+  </div>
 </custom-product-card>
