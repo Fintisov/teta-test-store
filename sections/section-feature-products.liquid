@@ -22,7 +22,7 @@
         {%- for block in section.blocks -%}
           {% if block.type == 'product_tabs' %}
             <li class="feature-products-tabs__trigger-item">
-              <button class="feature-products-tabs__trigger-button {% if forloop.first %}active{% endif %}">
+              <button class="feature-products-tabs__trigger-button">
                 {{ block.settings.title }}
               </button>
             </li>
@@ -36,8 +36,8 @@
             {%- assign products = block.settings.collection_product.products -%}
             {%- assign limit = block.settings.limit_product_card -%}
 
-            <div class="feature-products-tabs__content js-tab-container-content {% if forloop.first %}active{% endif %}">
-              {% if products.size > 0 %}
+            {% if products.size > 0 %}
+              <div class="feature-products-tabs__content js-tab-container-content">
                 <div class="feature-products-tabs-list-{{ forloop.index }} swiper">
                   <div class="feature-products-tabs-list__nav-btn">
                     <div class="swiper-button-prev"></div>
@@ -73,6 +73,7 @@
                     loop: true,
                     slidesPerView: 1.25,
                     spaceBetween: 24,
+                    watchOverflow: true,
                     navigation: {
                       nextEl: '.swiper-button-next',
                       prevEl: '.swiper-button-prev',
@@ -80,7 +81,7 @@
                     breakpoints: {
                       576: {
                         slidesPerView: 1.5,
-                        spaceBetween: 30
+                        spaceBetween: 30,
                       },
                       749: {
                         slidesPerView: 2,
@@ -90,12 +91,12 @@
                       },
                       1200: {
                         slidesPerView: 4,
-                      }
-                    }
+                      },
+                    },
                   });
                 </script>
-              {% endif %}
-            </div>
+              </div>
+            {% endif %}
           {% endif %}
         {%- endfor -%}
       </div>

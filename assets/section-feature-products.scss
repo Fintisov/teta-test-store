@@ -115,18 +115,33 @@
   }
 }
 
+.feature-products-tabs__content {
+  visibility: hidden;
+  height: 0;
+  opacity: 0;
+  transition: 0.2s opacity;
+
+  &.active {
+    height: auto;
+    visibility: visible;
+    opacity: 1;
+    transition: 0.7s opacity;
+  }
+}
+
 .feature-products-tabs__content-group {
 }
 
 .feature-products-tabs__product-list {
 }
 
-.feature-products-list {
-}
-
 .feature-products-list_item {
   height: auto;
 }
+
+.feature-products-list {
+}
+
 
 .feature-products-tabs-list__nav-btn {
   display: flex;
@@ -163,6 +178,10 @@
 
     &:after {
       content: none;
+    }
+
+    &.swiper-button-lock {
+      display: none;
     }
   }
 

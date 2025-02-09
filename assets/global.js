@@ -1,8 +1,8 @@
 function getFocusableElements(container) {
   return Array.from(
     container.querySelectorAll(
-      "summary, a[href], button:enabled, [tabindex]:not([tabindex^='-']), [draggable], area, input:not([type=hidden]):enabled, select:enabled, textarea:enabled, object, iframe"
-    )
+      'summary, a[href], button:enabled, [tabindex]:not([tabindex^=\'-\']), [draggable], area, input:not([type=hidden]):enabled, select:enabled, textarea:enabled, object, iframe',
+    ),
   );
 }
 
@@ -177,7 +177,7 @@ function focusVisiblePolyfill() {
       currentFocusedElement = document.activeElement;
       currentFocusedElement.classList.add('focused');
     },
-    true
+    true,
   );
 }
 
@@ -218,10 +218,10 @@ class QuantityInput extends HTMLElement {
   constructor() {
     super();
     this.input = this.querySelector('input');
-    this.changeEvent = new Event('change', { bubbles: true });
+    this.changeEvent = new Event('change', {bubbles: true});
     this.input.addEventListener('change', this.onInputChange.bind(this));
     this.querySelectorAll('button').forEach((button) =>
-      button.addEventListener('click', this.onButtonClick.bind(this))
+      button.addEventListener('click', this.onButtonClick.bind(this)),
     );
   }
 
@@ -266,12 +266,12 @@ class QuantityInput extends HTMLElement {
   validateQtyRules() {
     const value = parseInt(this.input.value);
     if (this.input.min) {
-      const buttonMinus = this.querySelector(".quantity__button[name='minus']");
+      const buttonMinus = this.querySelector('.quantity__button[name=\'minus\']');
       buttonMinus.classList.toggle('disabled', parseInt(value) <= parseInt(this.input.min));
     }
     if (this.input.max) {
       const max = parseInt(this.input.max);
-      const buttonPlus = this.querySelector(".quantity__button[name='plus']");
+      const buttonPlus = this.querySelector('.quantity__button[name=\'plus\']');
       buttonPlus.classList.toggle('disabled', value >= max);
     }
   }
@@ -302,7 +302,7 @@ function throttle(fn, delay) {
 function fetchConfig(type = 'json') {
   return {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', Accept: `application/${type}` },
+    headers: {'Content-Type': 'application/json', Accept: `application/${type}`},
   };
 }
 
@@ -431,10 +431,10 @@ class MenuDrawer extends HTMLElement {
 
   bindEvents() {
     this.querySelectorAll('summary').forEach((summary) =>
-      summary.addEventListener('click', this.onSummaryClick.bind(this))
+      summary.addEventListener('click', this.onSummaryClick.bind(this)),
     );
     this.querySelectorAll(
-      'button:not(.localization-selector):not(.country-selector__close-button):not(.country-filter__reset-button)'
+      'button:not(.localization-selector):not(.country-selector__close-button):not(.country-filter__reset-button)',
     ).forEach((button) => button.addEventListener('click', this.onCloseButtonClick.bind(this)));
   }
 
@@ -565,7 +565,7 @@ class HeaderDrawer extends MenuDrawer {
       this.borderOffset || this.closest('.header-wrapper').classList.contains('header-wrapper--border-bottom') ? 1 : 0;
     document.documentElement.style.setProperty(
       '--header-bottom-position',
-      `${parseInt(this.header.getBoundingClientRect().bottom - this.borderOffset)}px`
+      `${parseInt(this.header.getBoundingClientRect().bottom - this.borderOffset)}px`,
     );
     this.header.classList.add('menu-open');
 
@@ -588,10 +588,10 @@ class HeaderDrawer extends MenuDrawer {
 
   onResize = () => {
     this.header &&
-      document.documentElement.style.setProperty(
-        '--header-bottom-position',
-        `${parseInt(this.header.getBoundingClientRect().bottom - this.borderOffset)}px`
-      );
+    document.documentElement.style.setProperty(
+      '--header-bottom-position',
+      `${parseInt(this.header.getBoundingClientRect().bottom - this.borderOffset)}px`,
+    );
     document.documentElement.style.setProperty('--viewport-height', `${window.innerHeight}px`);
   };
 }
@@ -641,6 +641,7 @@ class ModalDialog extends HTMLElement {
     window.pauseAllMedia();
   }
 }
+
 customElements.define('modal-dialog', ModalDialog);
 
 class BulkModal extends HTMLElement {
@@ -668,7 +669,7 @@ class BulkModal extends HTMLElement {
     };
 
     new IntersectionObserver(handleIntersection.bind(this)).observe(
-      document.querySelector(`#QuickBulk-${this.dataset.productId}-${this.dataset.sectionId}`)
+      document.querySelector(`#QuickBulk-${this.dataset.productId}-${this.dataset.sectionId}`),
     );
   }
 }
@@ -688,6 +689,7 @@ class ModalOpener extends HTMLElement {
     });
   }
 }
+
 customElements.define('modal-opener', ModalOpener);
 
 class DeferredMedia extends HTMLElement {
@@ -744,7 +746,7 @@ class SliderComponent extends HTMLElement {
     if (this.sliderItemsToShow.length < 2) return;
     this.sliderItemOffset = this.sliderItemsToShow[1].offsetLeft - this.sliderItemsToShow[0].offsetLeft;
     this.slidesPerPage = Math.floor(
-      (this.slider.clientWidth - this.sliderItemsToShow[0].offsetLeft) / this.sliderItemOffset
+      (this.slider.clientWidth - this.sliderItemsToShow[0].offsetLeft) / this.sliderItemOffset,
     );
     this.totalPages = this.sliderItemsToShow.length - this.slidesPerPage + 1;
     this.update();
@@ -775,7 +777,7 @@ class SliderComponent extends HTMLElement {
             currentPage: this.currentPage,
             currentElement: this.sliderItemsToShow[this.currentPage - 1],
           },
-        })
+        }),
       );
     }
 
@@ -852,7 +854,7 @@ class SlideshowComponent extends SliderComponent {
           () => {
             this.announcementBarArrowButtonWasClicked = true;
           },
-          { once: true }
+          {once: true},
         );
       });
     }
@@ -1043,7 +1045,7 @@ class SlideshowComponent extends SliderComponent {
     const slideScrollPosition =
       this.slider.scrollLeft +
       this.sliderFirstItemNode.clientWidth *
-        (this.sliderControlLinksArray.indexOf(event.currentTarget) + 1 - this.currentPage);
+      (this.sliderControlLinksArray.indexOf(event.currentTarget) + 1 - this.currentPage);
     this.slider.scrollTo({
       left: slideScrollPosition,
     });
@@ -1072,8 +1074,8 @@ class VariantSelects extends HTMLElement {
     });
   }
 
-  updateSelectionMetadata({ target }) {
-    const { value, tagName } = target;
+  updateSelectionMetadata({target}) {
+    const {value, tagName} = target;
 
     if (tagName === 'SELECT' && target.selectedOptions.length) {
       Array.from(target.options)
@@ -1096,7 +1098,7 @@ class VariantSelects extends HTMLElement {
 
       selectedDropdownSwatchValue.style.setProperty(
         '--swatch-focal-point',
-        target.selectedOptions[0].dataset.optionSwatchFocalPoint || 'unset'
+        target.selectedOptions[0].dataset.optionSwatchFocalPoint || 'unset',
       );
     } else if (tagName === 'INPUT' && target.type === 'radio') {
       const selectedSwatchValue = target.closest(`.product-form__input`).querySelector('[data-selected-value]');
@@ -1110,7 +1112,7 @@ class VariantSelects extends HTMLElement {
 
   get selectedOptionValues() {
     return Array.from(this.querySelectorAll('select option[selected], fieldset input:checked')).map(
-      ({ dataset }) => dataset.optionValueId
+      ({dataset}) => dataset.optionValueId,
     );
   }
 }
@@ -1136,7 +1138,7 @@ class ProductRecommendations extends HTMLElement {
         observer.unobserve(this);
         this.loadRecommendations(productId);
       },
-      { rootMargin: '0px 0px 400px 0px' }
+      {rootMargin: '0px 0px 400px 0px'},
     );
     this.observer.observe(this);
   }
@@ -1198,7 +1200,7 @@ class BulkAdd extends HTMLElement {
   }
 
   startQueue(id, quantity) {
-    this.queue.push({ id, quantity });
+    this.queue.push({id, quantity});
     const interval = setInterval(() => {
       if (this.queue.length > 0) {
         if (!this.requestStarted) {
@@ -1267,3 +1269,50 @@ class BulkAdd extends HTMLElement {
 if (!customElements.get('bulk-add')) {
   customElements.define('bulk-add', BulkAdd);
 }
+
+// ==============================
+
+class TabContainer extends HTMLElement {
+  constructor() {
+    super();
+
+    this.tabListContainer = this.querySelector('.js-tab-container-trigger-group');
+    this.tabList = this.querySelectorAll('.js-tab-container-trigger-group button');
+    this.contentList = this.querySelectorAll('.js-tab-container-content');
+
+    this.ACTIVE_CLASS = 'active';
+
+    this.render();
+  }
+
+  removeActiveClass() {
+    this.tabList.forEach(item => item.classList.remove(this.ACTIVE_CLASS));
+    this.contentList.forEach(item => item.classList.remove(this.ACTIVE_CLASS));
+  }
+
+  setActiveClass(elem) {
+    elem?.classList.add(this.ACTIVE_CLASS);
+  }
+
+  onOpen(event) {
+    const target = event.target;
+    const targetButton = target.closest('button');
+
+    if (targetButton) {
+      const indexTrigger = [...this.tabList].findIndex(item => item == targetButton);
+
+      this.removeActiveClass();
+      this.setActiveClass(this.tabList[indexTrigger]);
+      this.setActiveClass(this.contentList[indexTrigger]);
+    }
+  }
+
+  render() {
+    this.setActiveClass(this.tabList[0]);
+    this.setActiveClass(this.contentList[0]);
+
+    this.tabListContainer.addEventListener('click', (e) => this.onOpen(e));
+  }
+}
+
+customElements.define('tab-container', TabContainer);
