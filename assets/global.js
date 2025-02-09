@@ -1316,3 +1316,124 @@ class TabContainer extends HTMLElement {
 }
 
 customElements.define('tab-container', TabContainer);
+
+
+class CustomProductCard extends HTMLElement {
+  constructor() {
+    super();
+
+    this.inputFormData = {
+      handle: null,
+      productId: null,
+    };
+
+    this.render();
+  }
+
+  updateInputFormData(form) {
+    const inputCollection = form.querySelectorAll('input');
+
+    inputCollection.forEach(input => {
+      this.inputFormData[input.name] = input.value;
+    });
+
+    return this.inputFormData;
+  }
+
+  updateSections(data) {
+    const updateCartIcon = () => {
+      const containerCartIcon = document.querySelector('#cart-icon-bubble');
+      containerCartIcon.innerHTML = data.sections['cart-icon-bubble'];
+    };
+
+    const updateCartDrawer = () => {
+      const cartDrawer = document.querySelector('cart-drawer');
+
+      const parsSection = new DOMParser().parseFromString(data.sections['cart-drawer'], 'text/html');
+      const correctCartDrawer = parsSection.querySelector('cart-drawer');
+
+      cartDrawer.replaceWith(correctCartDrawer);
+    };
+
+    updateCartIcon();
+    updateCartDrawer();
+  }
+
+  toggleActiveSubmitButton(status = true) {
+    const submitButton = this.querySelector('form button[type=submit]');
+
+    if (status === true) {
+      submitButton?.removeAttribute('disabled');
+    }
+
+    if (status === false) {
+      submitButton?.setAttribute('disabled', status);
+    }
+
+    return status;
+  }
+
+
+  async onRequestAddProduct(formData) {
+    try {
+      const request = await fetch(
+        '/cart/add.js',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+
+      return await request.json();
+    } catch (error) {
+      throw new Error(`onRequestAddProduct : ${error}`);
+    }
+  }
+
+  async handleAddProductToCard() {
+    const formData = {
+      items: [
+        {
+          id: this.inputFormData['productId'],
+          quantity: 1,
+        },
+      ],
+      sections: 'cart-drawer,cart-icon-bubble',
+    };
+
+    this.toggleActiveSubmitButton(false);
+
+    const responsData = await this.onRequestAddProduct(formData);
+
+    this.toggleActiveSubmitButton(true);
+
+    this.updateSections(responsData);
+
+    setTimeout(this.openCartDrawer);
+  }
+
+  openCartDrawer() {
+    const cartDrawer = document.querySelector('cart-drawer');
+
+    cartDrawer.classList.add('active', 'animate');
+    document.body.classList.add('overflow-hidden');
+  }
+
+  render() {
+    const form = this.querySelector('form');
+
+    this.updateInputFormData(form);
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      this.updateInputFormData(form);
+
+      await this.handleAddProductToCard();
+    });
+  }
+}
+
+customElements.define('custom-product-card', CustomProductCard);
