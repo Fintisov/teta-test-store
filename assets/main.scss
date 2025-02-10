@@ -89,6 +89,7 @@ select {
   @media screen and (max-width: $ui-breakpoints-md) {
     min-height: 4.8rem;
     font-size: 1.6rem;
+    gap: 5px;
   }
 
   &:hover {
@@ -117,6 +118,11 @@ select {
       background-size: contain;
       background-repeat: no-repeat;
       z-index: 0;
+
+      @media screen and (max-width: $ui-breakpoints-md) {
+        width: 28px;
+        height: 28px;
+      }
     }
   }
 }

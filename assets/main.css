@@ -90,6 +90,7 @@ select:focus-visible {
   .button {
     min-height: 4.8rem;
     font-size: 1.6rem;
+    gap: 5px;
   }
 }
 .button:hover {
@@ -114,6 +115,12 @@ select:focus-visible {
   background-size: contain;
   background-repeat: no-repeat;
   z-index: 0;
+}
+@media screen and (max-width: 749px) {
+  .button.button--add-to-cart:before {
+    width: 28px;
+    height: 28px;
+  }
 }
 
 .title-with-line {

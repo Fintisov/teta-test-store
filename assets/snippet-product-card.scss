@@ -26,6 +26,10 @@
   overflow: hidden;
   border-radius: 16px;
 
+  @media screen and (max-width: $ui-breakpoints-md) {
+    padding-top: 78%;
+  }
+
   img, svg {
     position: absolute;
     top: 0;
@@ -66,6 +70,7 @@
   @media screen and (max-width: $ui-breakpoints-md) {
     min-height: 48px;
     font-size: 1.6rem;
+    margin-bottom: 0.6rem;
   }
 }
 
@@ -79,6 +84,10 @@
   align-items: end;
   gap: 10px;
   margin-bottom: 2.4rem;
+
+  @media screen and (max-width: $ui-breakpoints-md) {
+    margin-bottom: 1.8rem;
+  }
 }
 
 .product-card__options {
@@ -92,8 +101,8 @@
 
   @media screen and (max-width: $ui-breakpoints-md) {
     font-size: 2rem;
+    letter-spacing: -0.01rem;
   }
-
 
   .price__sale {
     .price-item--regular {
@@ -118,6 +127,10 @@
 
   .jdgm-prev-badge__stars {
     padding-left: 8px !important;
+
+    @media screen and (max-width: $ui-breakpoints-md) {
+      padding-left: 0px !important;
+    }
   }
 
   .jdgm-prev-badge__text {
@@ -126,8 +139,14 @@
     font-weight: 500 !important;
   }
 
-  .jdgm-star.jdgm--off:before {
-    font-size: 1.4rem !important;
-    letter-spacing: 0.02rem !important;
+  .jdgm-star {
+    @media screen and (max-width: $ui-breakpoints-md) {
+      padding: 0 5px 0 0 !important;
+    }
+
+    .jdgm--off:before {
+      font-size: 1.4rem !important;
+      letter-spacing: 0.02rem !important;
+    }
   }
 }

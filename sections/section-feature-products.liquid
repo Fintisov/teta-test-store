@@ -11,12 +11,15 @@
    style="{{ styles | strip_newlines }}"
 >
   {% if request.design_mode != true or section.blocks.size > 0 %}
-    <div class="feature-products__container container">
+    <div class="container">
       {% if section.settings.title != blank %}
         <div class="feature-products__title-wrapper title-with-line title-with-line--desktop">
           <h2 class="feature-products__title">{{ section.settings.title }}</h2>
         </div>
       {% endif %}
+    </div>
+
+    <div class="feature-products__container container">
       <tab-container class="feature-products-tabs feature-products__tabs">
 
         {% if section.blocks.size > 0 %}
