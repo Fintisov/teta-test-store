@@ -84,7 +84,7 @@
 
       <button
          type="submit"
-         class="button product-card__add-btn"
+         class="button {% unless sold_out %}button--add-to-cart{% endunless %} product-card__add-btn"
          {% if sold_out %}
            disabled
          {% endif %}
@@ -92,7 +92,6 @@
         {% if sold_out %}
           {{ 'products.product.sold_out' | t }}
         {%- else -%}
-          {%- render 'icon-shopping-basket' -%}
           {{ 'products.product.add_to_cart' | t }}
         {% endif %}
       </button>

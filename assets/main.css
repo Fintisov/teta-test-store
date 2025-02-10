@@ -103,6 +103,18 @@ select:focus-visible {
   color: #ffffff;
   background-color: rgb(83.2951807229, 78.7518072289, 42.4048192771);
 }
+.button.button--add-to-cart:before {
+  content: "";
+  position: static;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  background-image: url("./icon-shopping-basket.svg");
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
 
 .title-with-line {
   position: relative;

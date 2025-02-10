@@ -1447,9 +1447,11 @@ class CustomProductCard extends HTMLElement {
 
       if (isAvailableProduct) {
         this.toggleActiveSubmitButton(true);
+        this.submitButton.classList.add('button--add-to-cart')
         this.submitButton.innerText = 'Add to cart';
       } else {
         this.toggleActiveSubmitButton(false);
+        this.submitButton.classList.remove('button--add-to-cart')
         this.submitButton.innerText = 'Sold out';
       }
     };
