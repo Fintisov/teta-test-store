@@ -104,6 +104,21 @@ select {
       background-color: color.scale($ui-color-dark, $lightness: 10%);
     }
   }
+
+  &.button--add-to-cart {
+    &:before {
+      content: '';
+      position: static;
+      width: 32px;
+      height: 32px;
+      display: inline-block;
+      background-image: url("./icon-shopping-basket.svg");
+      background-position: center center;
+      background-size: contain;
+      background-repeat: no-repeat;
+      z-index: 0;
+    }
+  }
 }
 
 .title-with-line {
