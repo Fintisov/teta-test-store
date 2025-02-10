@@ -1407,15 +1407,25 @@ class CustomProductCard extends HTMLElement {
       updateVariantId();
 
       const data = await this.getProductData();
+
       const productData = data['variants'].find(item => {
         return item.id == this.inputFormData['productId'];
       });
+      productData['url'] = data['url'];
 
       this.updateProductCardContent(productData);
     });
   }
 
   updateProductCardContent(productData) {
+    const updateUrl = () => {
+      if (!productData['url']) return;
+      const urlCurrentProductVariant = `${productData['url']}?variant=${productData['id']}`;
+      const links = this.querySelectorAll('a[href^="/products/"]')
+
+      links.forEach(item => item.href = urlCurrentProductVariant);
+    };
+
     const updateProductImage = () => {
       if (!productData['featured_image']) return;
 
@@ -1423,7 +1433,6 @@ class CustomProductCard extends HTMLElement {
       image.setAttribute('srcset', productData['featured_image']['src']);
       image.setAttribute('src', productData['featured_image']['src']);
     };
-
 
     const updatePrice = () => {
       const priceContainer = this.querySelector('.price');
@@ -1447,11 +1456,11 @@ class CustomProductCard extends HTMLElement {
 
       if (isAvailableProduct) {
         this.toggleActiveSubmitButton(true);
-        this.submitButton.classList.add('button--add-to-cart')
+        this.submitButton.classList.add('button--add-to-cart');
         this.submitButton.innerText = 'Add to cart';
       } else {
         this.toggleActiveSubmitButton(false);
-        this.submitButton.classList.remove('button--add-to-cart')
+        this.submitButton.classList.remove('button--add-to-cart');
         this.submitButton.innerText = 'Sold out';
       }
     };
@@ -1459,6 +1468,7 @@ class CustomProductCard extends HTMLElement {
     updateProductImage();
     updateButton();
     updatePrice();
+    updateUrl();
   }
 
   openCartDrawer() {
