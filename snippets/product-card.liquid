@@ -7,7 +7,9 @@
   Usage:
   {{ "snippet-product-card.css" | asset_url | stylesheet_tag }}
 
-  {% render 'product-card' %}
+  {% render 'product-card',
+      product: product
+   %}
 {% endcomment %}
 
 <custom-product-card class="product-card">
@@ -28,6 +30,12 @@
   </h3>
 
   <p class="product-card__description">{{ product.description | strip_html }}</p>
+
+  <div class="product-card__rating-wrapper">
+    <div class='jdgm-widget jdgm-preview-badge'>
+      {{ product.metafields.judgeme.badge }}
+    </div>
+  </div>
 
   <div class="product-card__form-wrapper">
     <form>
@@ -76,7 +84,7 @@
 
       <button
          type="submit"
-         class="button"
+         class="button product-card__add-btn"
          {% if sold_out %}
            disabled
          {% endif %}
@@ -84,6 +92,7 @@
         {% if sold_out %}
           {{ 'products.product.sold_out' | t }}
         {%- else -%}
+          {%- render 'icon-shopping-basket' -%}
           {{ 'products.product.add_to_cart' | t }}
         {% endif %}
       </button>
