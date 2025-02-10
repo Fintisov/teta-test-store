@@ -49,8 +49,57 @@
         "show_text_below": false
       }
     },
+    "section_feature_products_HkTq9T": {
+      "type": "section-feature-products",
+      "blocks": {
+        "product_tabs_YzWbjW": {
+          "type": "product_tabs",
+          "settings": {
+            "title": "Shop By Category",
+            "collection_product": "laptop",
+            "limit_product_card": 0
+          }
+        },
+        "product_tabs_kCXQdL": {
+          "type": "product_tabs",
+          "settings": {
+            "title": "Best Sellers",
+            "collection_product": "hp",
+            "limit_product_card": 0
+          }
+        },
+        "product_tabs_3YprJB": {
+          "type": "product_tabs",
+          "settings": {
+            "title": "New Arrivals",
+            "collection_product": "frontpage",
+            "limit_product_card": 0
+          }
+        },
+        "product_tabs_JHbdya": {
+          "type": "product_tabs",
+          "settings": {
+            "title": "On Sale",
+            "collection_product": "ultraslim",
+            "limit_product_card": 0
+          }
+        }
+      },
+      "block_order": [
+        "product_tabs_YzWbjW",
+        "product_tabs_kCXQdL",
+        "product_tabs_3YprJB",
+        "product_tabs_JHbdya"
+      ],
+      "settings": {
+        "padding_top": 64,
+        "padding_bottom": 128,
+        "title": "Featured Products"
+      }
+    },
     "featured_collection": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
         "title": "Featured products",
         "heading_size": "h2",
@@ -80,6 +129,7 @@
   },
   "order": [
     "image_banner",
+    "section_feature_products_HkTq9T",
     "featured_collection"
   ]
 }

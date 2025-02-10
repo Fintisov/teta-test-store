@@ -1,0 +1,222 @@
+{{ 'section-feature-products.css' | asset_url | stylesheet_tag }}
+{{ "snippet-product-card.css" | asset_url | stylesheet_tag }}
+
+{%- capture styles -%}
+  --padding-top-section: {{ section.settings.padding_top }}px;
+  --padding-bottom-section: {{ section.settings.padding_bottom }}px;
+{%- endcapture -%}
+
+<div
+   class="feature-products"
+   style="{{ styles | strip_newlines }}"
+>
+  {% if request.design_mode != true or section.blocks.size > 0 %}
+    <div class="feature-products__container container">
+      {% if section.settings.title != blank %}
+        <div class="feature-products__title-wrapper title-with-line title-with-line--desktop">
+          <h2 class="feature-products__title">{{ section.settings.title }}</h2>
+        </div>
+      {% endif %}
+      <tab-container class="feature-products-tabs feature-products__tabs">
+
+        {% if section.blocks.size > 0 %}
+          <ul class="feature-products-tabs__trigger-group js-tab-container-trigger-group">
+            {%- for block in section.blocks -%}
+              {% if block.type == 'product_tabs' %}
+                <li class="feature-products-tabs__trigger-item">
+                  <button class="feature-products-tabs__trigger-button">
+                    {{ block.settings.title }}
+                  </button>
+                </li>
+              {% endif %}
+            {%- endfor -%}
+          </ul>
+        {% endif %}
+
+        <div class="feature-products-tabs__content-group">
+          {%- for block in section.blocks -%}
+            {% if block.type == 'product_tabs' %}
+              {%- assign products = block.settings.collection_product.products -%}
+              {%- assign limit = block.settings.limit_product_card -%}
+
+              {% if products.size > 0 %}
+                <div class="feature-products-tabs__content js-tab-container-content">
+                  <div class="feature-products-tabs-list-{{ forloop.index }} swiper">
+                    <div class="feature-products-tabs-list__nav-btn">
+                      <div class="swiper-button-prev"></div>
+                      <div class="swiper-button-next"></div>
+                    </div>
+
+                    <ul class="feature-products-tabs__product-list
+                         feature-products-list
+                         swiper-wrapper">
+                      {% if limit > 0 %}
+                        {%- for product in products limit: limit -%}
+                          <li class="feature-products-list_item swiper-slide">
+                            {%- render 'product-card',
+                               product: product
+                            -%}
+                          </li>
+                        {%- endfor -%}
+                      {%- else -%}
+                        {%- for product in products -%}
+                          <li class="feature-products-list_item swiper-slide">
+                            {%- render 'product-card',
+                               product: product
+                            -%}
+                          </li>
+                        {%- endfor -%}
+                      {% endif %}
+                    </ul>
+                  </div>
+
+                  <script>
+                    new Swiper('.feature-products-tabs-list-{{ forloop.index }}', {
+                      speed: 400,
+                      loop: true,
+                      slidesPerView: 1.25,
+                      spaceBetween: 24,
+                      watchOverflow: true,
+                      navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                      },
+                      breakpoints: {
+                        576: {
+                          slidesPerView: 1.5,
+                          spaceBetween: 30,
+                        },
+                        749: {
+                          slidesPerView: 2,
+                        },
+                        989: {
+                          slidesPerView: 3,
+                        },
+                        1200: {
+                          slidesPerView: 4,
+                        },
+                      },
+                    });
+                  </script>
+                </div>
+              {% endif %}
+            {% endif %}
+          {%- endfor -%}
+        </div>
+      </tab-container>
+    </div>
+  {%- else -%}
+    <div class="feature-products__skeleton">
+      <div class="feature-products__container container">
+        <div class="feature-products__title-wrapper title-with-line title-with-line--desktop">
+          <h2 class="feature-products__title">Featured Products</h2>
+        </div>
+        <tab-container class="feature-products-tabs feature-products__tabs">
+
+          <ul class="feature-products-tabs__trigger-group js-tab-container-trigger-group">
+            {% for i in (1..4) -%}
+              <li class="feature-products-tabs__trigger-item">
+                <button class="feature-products-tabs__trigger-button">
+                  Tab title {{ i }}
+                </button>
+              </li>
+            {%- endfor %}
+          </ul>
+
+          <div class="feature-products-tabs__content-group">
+            <div class="feature-products-tabs__content js-tab-container-content">
+              <div class="feature-products-tabs-list-{{ forloop.index }} swiper">
+                <div class="feature-products-tabs-list__nav-btn">
+                  <div class="swiper-button-prev"></div>
+                  <div class="swiper-button-next"></div>
+                </div>
+
+                <ul class="feature-products-tabs__product-list
+                         feature-products-list
+                         swiper-wrapper"
+                >
+                  {% for i in (1..4) -%}
+                    <li class="feature-products-list_item swiper-slide">
+                      {%- render 'skeleton-product-card.liquid' -%}
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </tab-container>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Feature products",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "[Example section :](https://prnt.sc/_THJEcIb2vK2)"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 64,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 64,
+      "unit": "px"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "Featured Products",
+      "label": "Title section"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_tabs",
+      "name": "Product tab",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "title",
+          "default": "Tab title",
+          "label": "Tab title"
+        },
+        {
+          "type": "collection",
+          "id": "collection_product",
+          "label": "Collection products"
+        },
+        {
+          "type": "number",
+          "id": "limit_product_card",
+          "label": "Limit product card",
+          "info": "(Optional) You can limit the display of product cards. If the value is 0, all products will be shown.",
+          "default": 0
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Feature products"
+    }
+  ]
+}
+{% endschema %}

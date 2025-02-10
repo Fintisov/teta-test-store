@@ -1,0 +1,202 @@
+@use 'mixins' as *;
+@use 'variables' as *;
+
+.feature-products {
+  padding-top: var(--padding-top-section);
+  padding-bottom: var(--padding-bottom-section);
+
+  @media screen and (max-width: $ui-breakpoints-md) {
+    padding-top: calc(0.45 * var(--padding-top-section));
+    padding-bottom: calc(0.45 * var(--padding-bottom-section));
+  }
+}
+
+.feature-products__container {
+  @media screen and (max-width: $ui-breakpoints-md) {
+    max-width: 100%;
+    padding-right: 0;
+    padding-left: calc(50% - $ui-container-width-md / 2 + 16);
+  }
+}
+
+.feature-products__title-wrapper {
+  margin-bottom: 6.4rem;
+
+  @media screen and (max-width: $ui-breakpoints-md) {
+    margin-bottom: 4.8rem;
+  }
+}
+
+.feature-products__title {
+  width: max-content;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 64px;
+  font-size: 4.8rem;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: -0.04rem;
+  line-height: 1.36;
+  color: $ui-color-green-dark;
+  background-color: $ui-color-white;
+
+  @media screen and (max-width: $ui-breakpoints-md) {
+    font-size: 3.4rem;
+    padding: 0;
+  }
+}
+
+.feature-products-tabs {
+}
+
+.feature-products__tabs {
+}
+
+.feature-products-tabs__trigger-group {
+  display: flex;
+  align-items: center;
+  column-gap: 64px;
+  width: max-content;
+  max-width: 100%;
+  margin: 0 auto 4rem;
+  padding: 0.8rem 1.4rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  border: 2.5px solid $ui-color-green-dark;
+  border-radius: 64px;
+  @include style-scrollbar();
+
+  @media screen and (max-width: $ui-breakpoints-md) {
+    width: 100%;
+    border-radius: 50px 0 0 50px;
+    border-right: none;
+  }
+}
+
+.feature-products-tabs__trigger-item {
+  scroll-snap-align: center;
+}
+
+.feature-products-tabs__trigger-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  width: max-content;
+  min-height: 5.9rem;
+  padding: 10px 24px;
+  font-family: $ui-font-base;
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: 0.01rem;
+  line-height: 1.35;
+  color: $ui-color-grey;
+  background-color: $ui-color-white;
+  border-radius: 50px;
+  transition: 0.2s;
+  cursor: pointer;
+
+  @media screen and (max-width: $ui-breakpoints-md) {
+    gap: 6px;
+    min-height: 4.8rem;
+    font-size: 1.8rem;
+  }
+
+  &:hover {
+    background-color: $ui-color-green-light;
+  }
+
+  &.active {
+    color: $ui-color-green-light;
+    background-color: $ui-color-dark;
+    cursor: default;
+    pointer-events: none;
+  }
+}
+
+.feature-products-tabs__content {
+  visibility: hidden;
+  height: 0;
+  opacity: 0;
+  transition: 0.2s opacity;
+
+  &.active {
+    height: auto;
+    visibility: visible;
+    opacity: 1;
+    transition: 0.7s opacity;
+  }
+}
+
+.feature-products-tabs__content-group {
+}
+
+.feature-products-tabs__product-list {
+}
+
+.feature-products-list_item {
+  height: auto;
+}
+
+.feature-products-list {
+}
+
+.feature-products-tabs-list__nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 24px;
+  margin-bottom: 48px;
+
+  @media screen and (max-width: $ui-breakpoints-md) {
+    @include visibility-hidden;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: $ui-color-green;
+    top: 0;
+    left: 0;
+    margin-top: 0;
+    background-position: center center;
+    background-size: 20px;
+    background-repeat: no-repeat;
+    transition: 0.2s;
+
+    &:hover {
+      background-color: $ui-color-green--hover
+    }
+
+    &:after {
+      content: none;
+    }
+
+    &.swiper-button-lock {
+      display: none;
+    }
+  }
+
+  .swiper-button-next {
+    background-image: url('./icon-slider-arr-right.svg');
+  }
+
+  .swiper-button-prev {
+    background-image: url('./icon-slider-arr-left.svg');
+  }
+}
+
+.feature-products__skeleton {
+  .feature-products-tabs__product-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+}

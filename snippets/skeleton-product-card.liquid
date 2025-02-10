@@ -1,0 +1,40 @@
+<div class="product-card">
+  <div class="product-card__media">
+    <div class="product-card__image-holder js-product-card-image-holder">
+      {{ 'product-apparel-1' | placeholder_svg_tag }}
+    </div>
+  </div>
+
+  <h3 class="product-card__title">
+    All-In-One Raised Garden Bundles
+  </h3>
+
+  <p class="product-card__description">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis mollitia obcaecati officiis pariatur repellendus
+    sequi sit temporibus vel, veritatis? Unde.
+  </p>
+
+  <div class="product-card__rating-wrapper">
+    <div class='jdgm-widget jdgm-preview-badge'>
+      {{ product.metafields.judgeme.badge }}
+    </div>
+  </div>
+
+  <div class="product-card__form-wrapper">
+    <div class="product-card__info-group">
+      <div class="product-card__price">$499.00</div>
+
+      <label>
+        <select class="product-card__options js-product-card-options">
+          <option value="" selected disabled hidden>Options</option>
+        </select>
+      </label>
+    </div>
+
+
+    <button class="button product-card__add-btn">
+      {%- render 'icon-shopping-basket' -%}
+      {{ 'products.product.add_to_cart' | t }}
+    </button>
+  </div>
+</div>

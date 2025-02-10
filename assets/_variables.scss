@@ -1,8 +1,16 @@
+@use 'sass:color';
+
 $ui-color-green: #939C38;
-$ui-color-green-dark: #37341C;
+$ui-color-green--hover: color.scale($ui-color-green, $lightness: -10%);
+$ui-color-green-dark: #5F5A2A;
+$ui-color-green-light: #E9EBCE;
 $ui-color-dark: #37341C;
 $ui-color-grey: #727272;
+$ui-color-white: #ffffff;
+$ui-color-black: #000000;
 
+// ------------ Fonts ------------
+$ui-font-base: var(--font-body-family);
 
 // ------------ Breakpoints ------------
 
