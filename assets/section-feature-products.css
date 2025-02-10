@@ -205,4 +205,10 @@
   background-image: url("./icon-slider-arr-left.svg");
 }
 
+.feature-products__skeleton .feature-products-tabs__product-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
 /*# sourceMappingURL=section-feature-products.css.map */
